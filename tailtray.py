@@ -17,16 +17,36 @@ MIT License for more details.
 You should have received a copy of the MIT License
 along with this program. If not, see <https://opensource.org/licenses/MIT>.
 """
-
-import gi
-gi.require_version('Gtk', '3.0')
-gi.require_version('AppIndicator3', '0.1')
-from gi.repository import Gtk, Gdk, GLib, AppIndicator3
 import subprocess
 import threading
 import os
 import sys
 import logging
+
+# TODO:
+# 1. Implement a more robust search functionality that filters devices in real-time.
+# 2. Add a confirmation dialog before setting an exit node.
+# 3. Improve the Taildrop dialog to allow sending multiple files at once.
+# 4. Add a "copy to clipboard" button for IP addresses and DNS names.
+# 5. Implement a more sophisticated logging system that allows users to configure the log level and file location.
+# 6. Add a "check for updates" feature to notify users when a new version is available.
+# 7. Create a more detailed and user-friendly troubleshooting dialog.
+# 8. Add a "run in background" option to allow the application to run without a visible window.
+# 9. Implement a more robust error handling system that provides more detailed information to the user.
+# 10. Add a "settings" dialog to allow users to configure the application's behavior.
+
+
+try:
+    import gi
+    gi.require_version('Gtk', '3.0')
+    gi.require_version('AppIndicator3', '0.1')
+    from gi.repository import Gtk, Gdk, GLib, AppIndicator3
+except (ImportError, ValueError) as e:
+    logging.basicConfig(level=logging.ERROR)
+    logger = logging.getLogger(__name__)
+    logger.error(f"GTK dependencies are not met: {e}")
+    sys.exit("GTK dependencies are not met. Please install PyGObject and GTK for your distribution.")
+
 
 # Import the core client logic
 from tailscale_client import TailscaleClient

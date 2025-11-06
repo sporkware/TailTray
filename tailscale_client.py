@@ -126,24 +126,24 @@ class TailscaleClient:
             logger.error(error_msg)
             return False, str(e)
 
-    def ping_device(self, hostname: str) -> bool:
+    def ping_device(self, hostname: str) -> Tuple[bool, str, str]:
         """Ping a device"""
         try:
             logger.debug(f"Pinging device: {hostname}")
             result = subprocess.run(["tailscale", "ping", hostname],
-                                  capture_output=True, timeout=10)
+                                  capture_output=True, text=True, timeout=10)
             success = result.returncode == 0
             logger.debug(f"Ping {'successful' if success else 'failed'} for {hostname}")
-            return success
+            return success, result.stdout.strip(), result.stderr.strip()
         except subprocess.TimeoutExpired:
             logger.error(f"Ping timed out for {hostname}")
-            return False
+            return False, "", "Ping timed out"
         except FileNotFoundError:
             logger.error("Tailscale CLI not found")
-            return False
+            return False, "", "Tailscale CLI not found"
         except Exception as e:
             logger.error(f"Error pinging device {hostname}: {e}")
-            return False
+            return False, "", str(e)
 
     def taildrop_send(self, target: str, file_path: str) -> Tuple[bool, str]:
         """Send file via taildrop"""

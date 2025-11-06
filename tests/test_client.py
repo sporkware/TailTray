@@ -7,6 +7,7 @@ import unittest
 from unittest.mock import patch, MagicMock
 import sys
 import os
+import subprocess
 
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
@@ -107,6 +108,8 @@ class TestTailscaleClient(unittest.TestCase):
         """Test exit node disabling"""
         mock_result = MagicMock()
         mock_result.returncode = 0
+        mock_result.stdout = ""
+        mock_result.stderr = ""
         mock_run.return_value = mock_result
 
         success, error = self.client.set_exit_node(None)
@@ -135,14 +138,18 @@ class TestTailscaleClient(unittest.TestCase):
         """Test successful device ping"""
         mock_result = MagicMock()
         mock_result.returncode = 0
+        mock_result.stdout = "pong"
+        mock_result.stderr = ""
         mock_run.return_value = mock_result
 
-        result = self.client.ping_device('device.example.ts.net')
+        success, stdout, stderr = self.client.ping_device('device.example.ts.net')
 
-        self.assertTrue(result)
+        self.assertTrue(success)
+        self.assertEqual(stdout, "pong")
+        self.assertEqual(stderr, "")
         mock_run.assert_called_once_with(
             ['tailscale', 'ping', 'device.example.ts.net'],
-            capture_output=True, timeout=10
+            capture_output=True, text=True, timeout=10
         )
 
     @patch('subprocess.run')
@@ -150,11 +157,52 @@ class TestTailscaleClient(unittest.TestCase):
         """Test device ping failure"""
         mock_result = MagicMock()
         mock_result.returncode = 1
+        mock_result.stdout = ""
+        mock_result.stderr = "timeout"
         mock_run.return_value = mock_result
 
-        result = self.client.ping_device('device.example.ts.net')
+        success, stdout, stderr = self.client.ping_device('device.example.ts.net')
 
-        self.assertFalse(result)
+        self.assertFalse(success)
+        self.assertEqual(stdout, "")
+        self.assertEqual(stderr, "timeout")
+
+    @patch('subprocess.run')
+    def test_taildrop_send_success(self, mock_run):
+        """Test successful taildrop send"""
+        mock_result = MagicMock()
+        mock_result.returncode = 0
+        mock_result.stdout = ""
+        mock_result.stderr = ""
+        mock_run.return_value = mock_result
+
+        success, error = self.client.taildrop_send("target", "/tmp/file")
+
+        self.assertTrue(success)
+        self.assertEqual(error, "")
+        mock_run.assert_called_once_with(
+            ['tailscale', 'file', 'cp', '/tmp/file', 'target:'],
+            capture_output=True, text=True, timeout=30
+        )
+
+    @patch('subprocess.run')
+    def test_taildrop_send_failure(self, mock_run):
+        """Test taildrop send failure"""
+        mock_result = MagicMock()
+        mock_result.returncode = 1
+        mock_result.stderr = "failed"
+        mock_run.return_value = mock_result
+
+        success, error = self.client.taildrop_send("target", "/tmp/file")
+
+        self.assertFalse(success)
+        self.assertEqual(error, "failed")
+
+    @patch('subprocess.run', side_effect=FileNotFoundError)
+    def test_file_not_found_error(self, mock_run):
+        """Test FileNotFoundError"""
+        status = self.client.get_status()
+        self.assertIsNone(status)
 
     def test_get_devices_empty_status(self):
         """Test get_devices with no status"""

@@ -1,2 +1,9 @@
+# GTK GUI
 PyGObject>=3.40.0
-requests>=2.25.0
+
+# Development
+pytest>=6.0
+pytest-cov>=2.10
+black>=22.0
+flake8>=4.0
+mypy>=0.900
