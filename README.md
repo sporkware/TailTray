@@ -1,5 +1,15 @@
 # TailTray - Tailscale GUI for Linux
 
+```
+   _____     _ _     _______
+  / ____|   | | |   |__   __|
+ | |    __ _| | |      | |
+ | |   / _` | | |      | |
+ | |__| (_| | | |      | |
+  \_____\__,_|_|_|      |_|
+    TailTray
+```
+
 A system tray GUI application for Tailscale on Linux, providing the same features as the Windows Tailscale client.
 
 ## Features
