@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=TailTray
+Comment=Tailscale GUI for KDE Plasma
+Exec=tailtray
+Icon=tailtray
+Terminal=false
+Categories=Network;Qt;KDE;System;
+StartupNotify=true
+X-KDE-StartupNotify=true
+X-KDE-SubstituteUID=false
+Keywords=tailscale;vpn;network;kde;plasma;

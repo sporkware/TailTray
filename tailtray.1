@@ -1,0 +1,59 @@
+.TH TAILTRAY 1 "November 2025" "TailTray 0.1.0" "User Commands"
+.SH NAME
+tailtray \- Tailscale GUI for KDE Plasma
+.SH SYNOPSIS
+.B tailtray
+.RI [ OPTION... ]
+.SH DESCRIPTION
+.B TailTray
+is a system tray GUI application for Tailscale on Linux, providing the same features as the Windows Tailscale client. It is designed specifically for KDE Plasma desktop environment running on Wayland.
+.SH OPTIONS
+.TP
+.BR \-h ", " \-\-help
+Show help options
+.TP
+.BR \-\-help\-gtk
+Show GTK+ options
+.TP
+.BR \-\-display=DISPLAY
+X display to use
+.SH FEATURES
+.IP \(bu 2
+Device Management: View and search all devices in your Tailscale network
+.IP \(bu 2
+Exit Node Selection: Enable/disable exit nodes with a full selection dialog
+.IP \(bu 2
+Taildrop: Send files to devices on your network
+.IP \(bu 2
+Tailscale SSH: SSH connections with terminal integration
+.IP \(bu 2
+Troubleshooting: Diagnostics, connectivity tests, and log viewing
+.IP \(bu 2
+MagicDNS: DNS name display and automatic resolution
+.IP \(bu 2
+System Tray: KDE Plasma system tray with right-click menu
+.SH CONFIGURATION
+Configuration files are stored in
+.BR $XDG_CONFIG_HOME/tailtray/
+(default: ~/.config/tailtray/)
+.SH FILES
+.TP
+.B ~/.config/tailtray/config.json
+User configuration file
+.TP
+.B ~/.cache/tailtray/tailtray.log
+Application log file
+.SH ENVIRONMENT
+.TP
+.B XDG_CONFIG_HOME
+Base directory for user configuration files
+.TP
+.B DISPLAY
+X display to use (for X11 compatibility)
+.SH SEE ALSO
+.BR tailscale (8),
+.BR systemctl (1)
+.SH AUTHOR
+TailTray Contributors
+.SH BUGS
+Report bugs at <https://github.com/yourusername/tailtray/issues>

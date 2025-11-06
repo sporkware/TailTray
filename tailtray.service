@@ -1,0 +1,14 @@
+[Unit]
+Description=TailTray - Tailscale GUI for KDE Plasma
+After=graphical-session.target tailscaled.service
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /usr/bin/tailtray
+Restart=on-failure
+RestartSec=5
+Environment=DISPLAY=%i
+
+[Install]
+WantedBy=graphical-session.target
