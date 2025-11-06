@@ -68,7 +68,8 @@ pip install -r requirements.txt
 # Run the application
 python tailtray.py
 
-# Optional: Build bundled executable for faster loading (requires GTK system libraries)
+# Optional: Build bundled executable for faster loading
+# Note: Requires GTK3 and AppIndicator3 system libraries installed
 pip install -r requirements-dev.txt
 make build
 

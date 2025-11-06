@@ -17,18 +17,24 @@ def build_executable():
     script_dir = Path(__file__).parent
     os.chdir(script_dir)
 
-    # PyInstaller command (Nuitka requires patchelf for better optimization)
+    # PyInstaller command with comprehensive GTK bundling
     cmd = [
         "pyinstaller",
-        "--onefile",  # Create a single executable
+        "--onedir",  # Create directory bundle
         "--windowed",  # Don't show console window (for GUI app)
         "--name", "tailtray",
+        "--hidden-import", "gi",
+        "--hidden-import", "gi.repository",
         "--hidden-import", "gi.repository.Gtk",
         "--hidden-import", "gi.repository.Gdk",
         "--hidden-import", "gi.repository.GLib",
         "--hidden-import", "gi.repository.GObject",
         "--hidden-import", "gi.repository.AppIndicator3",
         "--hidden-import", "gi.repository.Gio",
+        "--hidden-import", "gi.repository.GdkPixbuf",
+        "--hidden-import", "gi.repository.Pango",
+        "--hidden-import", "gi.repository.cairo",
+        "--collect-all", "gi",
         "--add-data", "tailtray.svg:.",  # Include icon in bundle
         "tailtray.py"
     ]
