@@ -753,9 +753,12 @@ class TailscaleGUI(Gtk.Application):
 
     def create_indicator(self):
         try:
+            # Get the path to the icon
+            icon_path = os.path.join(os.path.dirname(__file__), "tailtray.svg")
+
             self.indicator = AppIndicator3.Indicator.new(
                 "tailscale-gui",
-                "network-vpn",
+                icon_path,
                 AppIndicator3.IndicatorCategory.APPLICATION_STATUS
             )
             self.indicator.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
