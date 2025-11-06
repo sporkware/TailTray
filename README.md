@@ -58,7 +58,7 @@ pip install -r requirements.txt
 # Run the application
 python tailtray.py
 
-# Optional: Build standalone executable for faster loading
+# Optional: Build bundled executable for faster loading (requires GTK system libraries)
 pip install -r requirements-dev.txt
 python build.py
 ```

@@ -20,10 +20,15 @@ def build_executable():
     # PyInstaller command
     cmd = [
         "pyinstaller",
-        "--onefile",  # Create a single executable
+        "--onedir",  # Create a directory with executable
         "--windowed",  # Don't show console window (for GUI app)
         "--name", "tailtray",
-        "--icon", "tailtray.svg",  # Use the SVG icon if possible, or convert to ICO
+        "--hidden-import", "gi.repository.Gtk",
+        "--hidden-import", "gi.repository.Gdk",
+        "--hidden-import", "gi.repository.GLib",
+        "--hidden-import", "gi.repository.GObject",
+        "--hidden-import", "gi.repository.AppIndicator3",
+        "--hidden-import", "gi.repository.Gio",
         "--add-data", "tailtray.svg:.",  # Include icon in bundle
         "tailtray.py"
     ]
