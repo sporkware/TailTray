@@ -1,12 +1,12 @@
 # TailTray - Tailscale GUI for Linux
 
 ```
-   _____     _ _     _______
-  / ____|   | | |   |__   __|
- | |    __ _| | |      | |
- | |   / _` | | |      | |
- | |__| (_| | | |      | |
-  \_____\__,_|_|_|      |_|
+___________      .__._____________                    
+\__    ___/____  |__|  \__    ___/___________  ___.__.
+  |    |  \__  \ |  |  | |    |  \_  __ \__  \<   |  |
+  |    |   / __ \|  |  |_|    |   |  | \// __ \\___  |
+  |____|  (____  /__|____/____|   |__|  (____  / ____|
+               \/                            \/\/     
     TailTray
 ```
 
@@ -55,8 +55,8 @@ sudo systemctl enable --now tailscaled
 
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd tailtray
+git clone https://github.com/sporkware/TailTray.git
+cd TailTray
 
 # Create virtual environment
 python3 -m venv venv
@@ -100,8 +100,6 @@ Build and install from PKGBUILD:
 # Clone and build
 makepkg -si
 
-# Or install from AUR (when available)
-yay -S tailtray
 ```
 
 ### Systemd User Service
