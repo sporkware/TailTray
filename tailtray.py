@@ -591,6 +591,9 @@ class MainWindow(Gtk.ApplicationWindow):
         self.add(main_box)
         self.refresh_devices()
 
+        # Connect delete event to hide window instead of closing
+        self.connect("delete-event", self.on_delete_event)
+
     def create_header(self, parent_box):
         header_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
@@ -784,6 +787,11 @@ class TailscaleGUI(Gtk.Application):
                 self.main_window.hide()
             else:
                 self.main_window.present()
+
+    def on_delete_event(self, widget, event):
+        """Hide the window instead of closing when X is clicked"""
+        self.hide()
+        return True  # Prevent the window from being destroyed
 
     def quit_app(self, item=None):
         if self.main_window:
