@@ -70,6 +70,9 @@ python tailtray.py
 
 # Optional: Build bundled executable for faster loading (requires GTK system libraries)
 pip install -r requirements-dev.txt
+make build
+
+# Or manually
 python build.py
 ```
 

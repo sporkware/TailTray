@@ -17,10 +17,10 @@ def build_executable():
     script_dir = Path(__file__).parent
     os.chdir(script_dir)
 
-    # PyInstaller command
+    # PyInstaller command (Nuitka requires patchelf for better optimization)
     cmd = [
         "pyinstaller",
-        "--onedir",  # Create a directory with executable
+        "--onefile",  # Create a single executable
         "--windowed",  # Don't show console window (for GUI app)
         "--name", "tailtray",
         "--hidden-import", "gi.repository.Gtk",
